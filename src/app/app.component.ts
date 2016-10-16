@@ -1,32 +1,51 @@
 import { Component } from '@angular/core';
-import {Article} from "./article/article.model";
+import {Product} from "./product.model";
+
+
+
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <div class="inventory-app">
+      <products-list
+        [productList]="products"
+        (onProductSelected)="productWasSelected($event)"
+      >
+    </products-list>
+    </div>
+  `,
 })
 export class AppComponent {
-  articles: Article[];
-
-  sortedArticles(): Article[] {
-    return this.articles.sort((a: Article, b: Article) => b.votes - a.votes);
-  }
+  products: Product[];
 
   constructor() {
-    this.articles = [
-    new Article('Angular 2', 'http://angular.io', 3),
-    new Article('Fullstack', 'http://fullstack.io', 2),
-    new Article('Angular Homepage', 'http://angular.io', 1)
+    this.products = [
+      new Product(
+        'MYSHOES',
+        'Black Running Shoes',
+        'resources/images/products/black-shoes.jpg',
+        ['Men', 'Shoes', 'Running Shoes'],
+        29.99
+      ),
+      new Product(
+        'NEATOJACKET',
+        'Blue Jacket',
+        'resources/images/products/blue-jacket.jpg',
+        ['Women', 'Apparel', 'Jackets & Vests'],
+        29.99
+      ),
+      new Product(
+        'NICEHAT',
+        'A Nice Black Hat',
+        'resources/images/products/black-hat.jpg',
+        ['Men', 'Accessories', 'Hats'],
+        29.99
+      )
     ];
   }
 
-
-  addArticle(title: HTMLInputElement, link: HTMLInputElement): boolean {
-    console.log(`Adding article title: ${title.value} and link: ${link.value}`);
-    this.articles.push(new Article(title.value, link.value, 0));
-    title.value = '';
-    link.value = '';
-    return false;
+  productWasSelected(product: Product): void {
+    console.log('Product clicked: ', product);
   }
 }
