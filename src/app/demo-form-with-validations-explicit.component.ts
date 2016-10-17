@@ -57,6 +57,18 @@ export class DemoFormWithValidationsExplicitComponent implements OnInit {
     });
 
     this.sku = this.myForm.controls['sku'];
+
+    this.sku.valueChanges.subscribe(
+      (value: string) => {
+        console.log('sku changed to: ', value);
+      }
+    )
+
+    this.myForm.valueChanges.subscribe(
+      (value: string) => {
+        console.log('form changed to: ', value);
+      }
+    )
   }
 
   onSubmit(value: string): void {
