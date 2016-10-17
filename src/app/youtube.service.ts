@@ -5,7 +5,7 @@ import {SearchResult} from "./search-result.model";
 
 @Injectable()
 export class YoutubeService {
-  YOUTUBE_API_KEY: string = "AIzaSyD5oQy29-j7hANhU1IQB1vLx2PaUfbZ4yk";
+  YOUTUBE_API_KEY: string = "AIzaSyC4ta9uaekyuT3c7eOlksa5ETU9t05V6eI";
   YOUTUBE_API_URL: string = "https://www.googleapis.com/youtube/v3/search";
 
   constructor(public http: Http) { }
@@ -28,8 +28,9 @@ export class YoutubeService {
     ].join('&');
     let queryUrl: string = `${this.getApiUrl()}?${params}`;
     return this.http.get(queryUrl)
-      .map((res: Response) => {
-        return (<any>res.json()).items.map(item => {
+      .map((response: Response) => {
+        return (<any>response.json()).items.map(item => {
+          // console.log("raw item", item); // uncomment if you want to debug
           return new SearchResult({
             id: item.id.videoId,
             title: item.snippet.title,
@@ -38,7 +39,6 @@ export class YoutubeService {
           });
         });
       });
-
   }
 
 
