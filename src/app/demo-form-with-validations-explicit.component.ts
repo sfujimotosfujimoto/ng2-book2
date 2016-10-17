@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators, AbstractControl, FormControl} from "@angular/forms";
 
 @Component({
   selector: 'demo-form-with-validations-explicit',
@@ -22,9 +22,16 @@ import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/form
         <div 
           *ngIf="!sku.valid && sku.dirty"
           class="ui error message">SKU is invalid</div>
+        
         <div
-          *ngIf="sku.hasError('required')"
+          *ngIf="sku.hasError('required') && sku.dirty"
           class="ui error message">SKU is required</div>
+          
+         <div
+          *ngIf="sku.hasError('invalidSku') && sku.dirty"
+          class="ui error message">SKU must begin with <span>123</span></div>
+        
+        
         </div>
         
         
@@ -44,7 +51,9 @@ export class DemoFormWithValidationsExplicitComponent implements OnInit {
 
   constructor(fb: FormBuilder) {
     this.myForm = fb.group({
-      'sku': ['', Validators.required ]
+      'sku': ['', Validators.compose([
+        Validators.required, this.skuValidator
+      ])]
     });
 
     this.sku = this.myForm.controls['sku'];
@@ -52,6 +61,12 @@ export class DemoFormWithValidationsExplicitComponent implements OnInit {
 
   onSubmit(value: string): void {
     console.log('you submitted value: ', value);
+  }
+
+  skuValidator(control: FormControl): { [s: string]: boolean } {
+    if (!control.value.match(/^123/)) {
+      return {invalidSku: true};
+    }
   }
 
   ngOnInit() {
