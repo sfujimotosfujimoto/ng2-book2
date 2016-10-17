@@ -1,27 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { DemoFromSkuComponent } from './demo-form-sku.component';
-import { DemoFormSkuBuilderComponent } from './demo-form-sku-builder.component';
-import { DemoFormWithValidationsExplicitComponent } from './demo-form-with-validations-explicit.component';
+import { SimpleHttpComponent } from './simple-http.component';
+import {YoutubeService} from "./youtube.service";
+import { SearchBoxComponent } from './search-box.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemoFromSkuComponent,
-    DemoFormSkuBuilderComponent,
-    DemoFormWithValidationsExplicitComponent,
+    SimpleHttpComponent,
+    SearchBoxComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [YoutubeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
