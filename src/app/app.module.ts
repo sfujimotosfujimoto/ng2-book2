@@ -6,11 +6,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
 import { SearchComponent } from './search.component';
+import { TrackComponent } from './track.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
+    TrackComponent,
 
   ],
   imports: [
